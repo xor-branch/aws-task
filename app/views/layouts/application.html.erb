@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ajax</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <div>
+    <% flash.each do |key, value|%>
+      <%= content_tag(:div,value,class:"alert alert-#{key}")%>
+    <% end%>
+  </div>
+  <div class="">
+    <% if user_signed_in? %>
+      <button type="button" name="button"><%= link_to "logout", destroy_user_session_path, method: :delete %></button>
+      <button type="button" name="button"><%= link_to "user params", edit_user_registration_path %></button>
+      <br>
+     <%= image_tag (current_user.avatar_thumbnail) %>
+    <% else %>
+
+      <%= link_to "sign up", new_user_registration_path %>
+      <%= link_to "login", new_user_session_path %>
+   <% end %>
+    <%= yield %>
+  </body>
+</html>
